@@ -29,6 +29,27 @@ executable gensrt
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , filepath
+    , safe-exceptions
+    , text
+    , time
+    , transformers
+  default-language: Haskell2010
+
+test-suite gensrt-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_gensrt
+  autogen-modules:
+      Paths_gensrt
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , doctest
+    , filepath
     , safe-exceptions
     , text
     , time
