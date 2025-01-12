@@ -18,6 +18,7 @@ dependencies:
   - transformers
   - safe-exceptions
   - time
+  - filepath
 
 ghc-options:
 - -Wall
@@ -34,3 +35,10 @@ executables:
   gensrt:
     source-dirs:      src
     main:             Main.hs
+
+tests:
+  gensrt-test:
+    source-dirs:      test
+    main:             Spec.hs
+    dependencies:
+    - doctest
