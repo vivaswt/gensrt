@@ -7,6 +7,7 @@ import Control.Monad.Trans.Class (MonadTrans (lift))
 import Control.Monad.Trans.Except (ExceptT, runExceptT, throwE)
 import Control.Monad.Trans.State (StateT, evalStateT, get, put, runStateT)
 import Data.Char (isSpace)
+import Data.List (intercalate)
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 import Data.Time.Clock (NominalDiffTime)
@@ -47,10 +48,13 @@ generate = do
   result <- evalStateT (collateSubsWithTimestamps subtitleLines) wordTimestamps
 
   let outputFileName = getOutputFileName subtitleFileName
-  let srtTexts = concat . zipWith segmentToSrtRow [1 ..] $ mergeSegments <$> result
+  let srtTexts =
+        intercalate [""]
+          . zipWith segmentToSrtRow [1 ..]
+          $ mergeSegments <$> result
   safeWriteFile outputFileName (T.unlines srtTexts)
 
-  return $ "Generated " <> T.pack outputFileName
+  return $ "generated: " <> T.pack outputFileName
 
 -- | Get the output file name from the subtitle file name.
 getOutputFileName :: T.Text -> String
